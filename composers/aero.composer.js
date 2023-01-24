@@ -11,7 +11,9 @@ composer.hears('АЭРОДИНАМИКА', async (ctx)=>{
 	try{
 			await	ctx.deleteMessage()
 			const sim = await	Aero.findOne({ where: { id: ind } })
-			await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})
+			if(sim.imgData){await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})}else{
+				await	ctx.replyWithHTML(`<b>Тема #${sim.id}: ${sim.level}</b>`)
+			}
 			await ctx.replyWithHTML(`${sim.themData}`,Markup.keyboard([['ПОЛЕТ ПО КРУГУ'],['АЭРОДИНАМИКА'],['ВЕРНУТЬСЯ НА ГЛАВНУЮ'] ]).oneTime().resize())
 			if(sim.audioData){await	ctx.replyWithAudio(sim.audioData)}
 			if(sim.videoData){await	ctx.replyWithVideo(sim.videoData)}
@@ -31,7 +33,9 @@ composer.action("next_aero", async (ctx)=>{
 			await	ctx.deleteMessage()
 			const sim = await	Aero.findOne({ where: { id: ind+1 } })
 			await	ctx.replyWithSticker(process.env.RIGEL)
-			await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})
+			if(sim.imgData){await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})}else{
+				await	ctx.replyWithHTML(`<b>Тема #${sim.id}: ${sim.level}</b>`)
+			}
 			await ctx.replyWithHTML(`${sim.themData}`,Markup.keyboard([['ПОЛЕТ ПО КРУГУ'],['АЭРОДИНАМИКА'],['ВЕРНУТЬСЯ НА ГЛАВНУЮ'] ]).oneTime().resize())
 			if(sim.audioData){await	ctx.replyWithAudio(sim.audioData)}
 			if(sim.videoData){await	ctx.replyWithVideo(sim.videoData)}
@@ -52,7 +56,11 @@ composer.action("prext_aero", async (ctx)=>{
 				await	ctx.deleteMessage()
 				const sim = await	Aero.findOne({ where: { id: ind-1 } })
 				await	ctx.replyWithSticker(process.env.RIGEL)
-				await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})
+				if(sim.imgData){await	ctx.replyWithPhoto(sim.imgData, {caption:`<b>Тема #${sim.id}: ${sim.level}</b>`, parse_mode:'HTML'})}else{
+					await	ctx.replyWithHTML(`<b>Тема #${sim.id}: ${sim.level}</b>`)
+				}
+				 
+
 				await ctx.replyWithHTML(`${sim.themData}`,Markup.keyboard([['ПОЛЕТ ПО КРУГУ'],['АЭРОДИНАМИКА'],['ВЕРНУТЬСЯ НА ГЛАВНУЮ'] ]).oneTime().resize())
 				if(sim.audioData){await	ctx.replyWithAudio(sim.audioData)}
 				if(sim.videoData){await	ctx.replyWithVideo(sim.videoData)}
